@@ -89,3 +89,22 @@ class Profile(models.Model):
     def save_user_profile(sender, instance, **kwargs):
         instance.profile.save()
    
+# Post Model
+
+class Post(models.Model):
+
+    neighbourhood = models.ForeignKey(NeighbourHood, on_delete=models.CASCADE, default=1)
+    title = models.CharField(max_length=50)
+    content = models.TextField(blank=True, null=True)
+    image =models.ImageField(upload_to = "pros/")
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def create_post(self):
+        self.save()
+
+    def delete_post(self):
+        self.delete()
+
+    def update_post(self):
+        self.update()
