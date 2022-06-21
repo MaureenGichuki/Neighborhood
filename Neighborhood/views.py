@@ -64,3 +64,10 @@ def neighborhood(request, neighborhood_id):
         users = Profile.objects.filter(neighbourhood=neighborhood)
         posts = Post.objects.filter(neighbourhood=neighborhood)
     return render(request, 'neighbourhood.html', {'post_form':post_form, 'business_form': business_form, 'users':users,'current_user':current_user, 'neighborhood':neighborhood,'business':business,'posts':posts})
+
+@login_required
+def join_hood(request, neighborhood_id):
+    neighborhood = get_object_or_404(NeighbourHood, id=neighborhood_id)
+    request.user.profile.neighbourhood = neighborhood
+    request.user.profile.save()
+    return redirect('neighbourhood', neighborhood_id = neighborhood.id)
