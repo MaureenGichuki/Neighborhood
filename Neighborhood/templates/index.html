@@ -28,8 +28,7 @@
                          <p>Number of Occupants:{{neighbourhood.occupants_count}}</p>
                          <p>Number of Police Posts:{{neighbourhood.police_count}}</p>
                          <p>Number of Hospitals:{{neighbourhood.hospital_count}}</p>
-
-                         <p>Created at:</p> {{neighbourhood.created_at}}</p>
+                         <p>Created at: {{neighbourhood.created_at}}</p>
                     {%if not request.user.profile.neighbourhood%}
                     <a href="{% url 'joinhood' neighbourhood.id %}" class="btn btn-dark">Join
                         {{neighbourhood.name}}</a>
