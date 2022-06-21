@@ -22,3 +22,18 @@ def home(request):
         neighborhoods = NeighbourHood.objects.all()
         neighborhoods = neighborhoods[::-1]
     return render(request, 'index.html', {'form': form, 'neighborhoods': neighborhoods})
+
+@login_required
+def profile(request):
+    current_user=request.user
+    profile = Profile.objects.filter(id=current_user.id).first()
+    if request.method == 'POST':
+        profileform = UpdateProfileForm(request.POST,request.FILES,instance=profile)
+        if  profileform.is_valid:
+            profileform.save(commit=False)
+            profileform.user=request.user
+            profileform.save()
+            return redirect('profile')
+    else:
+        form=UpdateProfileForm()
+    return render(request,'profile/profile.html',{'form':form})
