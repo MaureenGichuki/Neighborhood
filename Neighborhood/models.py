@@ -25,6 +25,7 @@ class NeighbourHood(models.Model):
     admin = models.ForeignKey(User, on_delete=models.CASCADE)
     location = models.ForeignKey(Location, on_delete=models.CASCADE)
     name = models.CharField(max_length=50)
+    photo = models.ImageField(upload_to ="photos/")
     occupants_count = models.IntegerField(default=0)
     police_count = models.IntegerField(default=0)
     hospital_count = models.IntegerField(default=0)
@@ -117,7 +118,7 @@ class Business(models.Model):
     name = models.CharField(max_length=50)
     email = models.EmailField(max_length=50)
     description = models.TextField(blank=True, null=True)
-    image = models.ImageField(upload_to ="photos/")
+    image = models.ImageField(upload_to ="pros/")
 
     def create_business(self):
         self.save()
