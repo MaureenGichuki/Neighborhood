@@ -78,3 +78,14 @@ def leave_hood(request, neighborhood_id):
     request.user.profile.neighbourhood = None
     request.user.profile.save()
     return redirect('hood')
+
+@login_required
+def search_results(request):
+
+    if 'name' in request.GET and request.GET["name"]:
+        search_term = request.GET.get("name")
+        searched_hoods = NeighbourHood.search_by_name(search_term)
+        print(searched_hoods)
+        message = f"{search_term}"
+
+        return render(request, 'search.html',{"hoods": searched_hoods})
