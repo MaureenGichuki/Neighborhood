@@ -1,0 +1,78 @@
+{%extends 'base.html'%}
+{% load bootstrap4 %}
+{% block content %}
+{{block.super}}
+<div class="container" id="profile">
+        <div class="container mt-4 mb-4 p-3 d-flex justify-content-center"> 
+            <div class="card p-4"> 
+                <div class=" image d-flex flex-column justify-content-center align-items-center">
+                     <button class="btn btn-secondary"> 
+                        {% if profile.profile_photo%}
+                        <img src="{{profile.profile_photo.url}}" height="100" width="100">
+                
+                        {%else%}
+                         <img src="https://cdn-icons-png.flaticon.com/256/5046/5046936.png" height="100" width="100">
+                        
+                        </button>
+                        {% endif %}
+                          <span class="name mt-3">{{user.username}}</span> 
+                          <div class="d-flex flex-row justify-content-center align-items-center gap-2">
+                            </div> 
+                            <div class="d-flex flex-row justify-content-center align-items-center mt-3">
+                                </span>
+                             </div> 
+                             <div class=" d-flex mt-2"> 
+                                {% if profile.bio%}
+                                <p>{{profile.bio}}</p>
+                                <p>{{profile.contact}}</p>
+                                {%else%}
+                                <p>No bio</p>
+                                {%endif%}
+                            </div> 
+                                <button type="button" id="updatebutton" class="btn btn-outline-dark btn-sm" data-toggle="modal"
+                                data-target="#updateprofile">Update Profile</button>                               
+                                    </div> </div>
+</div>
+   </div>
+    <div class="row">
+        
+        <div class="col-md-4">
+            {% if user.profile.neighbourhood %}
+           <a href="{% url 'neighbourhood' user.profile.neighbourhood.id %}" class="btn btn-dark"> {{user.profile.neighbourhood.name}}</a>
+          {% else %}
+          <div class="container bg-light">
+            <div class="col-md-12 text-center">
+             <a href="{% url 'hood'  %}" class="btn btn-dark">Join a Neighborhood</a>
+            </div>
+          </div>
+          {% endif %}
+            
+        </div>         
+</div>
+
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="modal fade" tabindex="-1" id="updateprofile" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title">Update Your Profile Here</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {% bootstrap_form form %}
+                  </div>
+                  <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </form> 
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  </div>
+            </div>
+        </div>
+      </div>
+</div>
+{% endblock %}
