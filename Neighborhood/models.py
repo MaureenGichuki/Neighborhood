@@ -51,3 +51,41 @@ class NeighbourHood(models.Model):
     
     def __str__(self):
         return "%s neighborhood" % self.name
+
+#Profile Model
+
+class Profile(models.Model):
+    neighbourhood = models.ForeignKey(NeighbourHood, on_delete=models.CASCADE,null=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    profile_photo = models.ImageField(upload_to="profiles/")
+    bio = models.TextField(max_length=500, blank=True, null=True)
+    location = models.ForeignKey(Location, on_delete=models.CASCADE, null=True)
+    contact = models.CharField(max_length=50, blank=True, null=True)
+    joined =models.DateTimeField(auto_now=True)
+
+
+    def update(self):
+        self.save()
+
+    def save_profile(self):
+        self.save()
+
+    def delete_profile(self):
+        self.delete()
+    def __str__(self):
+        return str(self.user)
+
+    @classmethod
+    def get_profile_by_user(cls, user):
+        profile = cls.objects.filter(user=user)
+        return profile 
+              
+    @receiver(post_save, sender=User)
+    def create_user_profile(sender, instance, created, **kwargs):
+        if created:
+            Profile.objects.create(user=instance)
+
+    @receiver(post_save, sender=User)
+    def save_user_profile(sender, instance, **kwargs):
+        instance.profile.save()
+   
