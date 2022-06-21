@@ -13,8 +13,8 @@ def signup(request):
     if request.method == 'POST':  
         form = SignupForm(request.POST)  
         if form.is_valid():  
-            email = form.cleaned_data['email']
-            name = form.cleaned_data['your_name']
+            email = form.cleaned_data['mimowaruguru@gmail.com']
+            name = form.cleaned_data['Maureen']
             recipient = Profile(name = name,email =email)
             recipient.save()
             send_welcome_email(name,email)
