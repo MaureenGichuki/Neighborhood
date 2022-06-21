@@ -1,0 +1,26 @@
+#images{
+    background-image: url("https://cdn.dribbble.com/users/330915/screenshots/4117015/media/a8f7f1919e37b28a900f353ddd1668bb.jpg?compress=1&resize=768x576&vertical=top");
+    background-repeat:no-repeat;
+    background-size: 100%;
+    background-position:right;
+    background-attachment: fixed;
+    background-size: cover;
+    width: 100vw;
+    height: 80vh; 
+    margin-top: 20px;
+
+}
+#fa{
+    text-align: right;
+    justify-content: flex-end;
+}
+
+.navbar-form{
+    margin-top: 200px;
+    width: 300px;
+}
+
+.navbar{
+    background-color: #f9a03f;
+    color: white;
+}
