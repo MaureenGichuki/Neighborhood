@@ -40,7 +40,7 @@ This is a django app allows users to sign up and login to the app to join their 
 You can reach me at[maureenwaruguru@gmail.com]
 
 ## The Neighborhood
-![ Neighborhood]()
+![ Neighborhood](hood.png)
 
 
 ## You can view the site here
