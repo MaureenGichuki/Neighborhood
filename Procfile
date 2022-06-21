@@ -1,0 +1,1 @@
+web: gunicorn Myhood.wsgi --log-file -
