@@ -37,3 +37,30 @@ def profile(request):
     else:
         form=UpdateProfileForm()
     return render(request,'profile/profile.html',{'form':form})
+
+@login_required
+def neighborhood(request, neighborhood_id):
+    neighborhood = NeighbourHood.objects.get(id=neighborhood_id)
+    if request.method == 'POST':
+        form_post = PostForm(request.POST, request.FILES)
+        business_form = BusinessForm(request.POST, request.FILES)
+        if form_post.is_valid():
+            post = form_post.save(commit=False)
+            post.neighbourhood = neighborhood
+            post.user = request.user
+            post.save()
+        if business_form.is_valid():
+            business = business_form.save(commit=False)
+            business.neighbourhood = neighborhood
+            business.user = request.user
+            business.save()
+            return redirect('neighbourhood', neighborhood_id)
+    else:
+        current_user = request.user
+        post_form = PostForm()
+        business_form = BusinessForm()
+        neighborhood = NeighbourHood.objects.get(id=neighborhood_id)
+        business = Business.objects.filter(neighbourhood_id=neighborhood)
+        users = Profile.objects.filter(neighbourhood=neighborhood)
+        posts = Post.objects.filter(neighbourhood=neighborhood)
+    return render(request, 'neighbourhood.html', {'post_form':post_form, 'business_form': business_form, 'users':users,'current_user':current_user, 'neighborhood':neighborhood,'business':business,'posts':posts})
