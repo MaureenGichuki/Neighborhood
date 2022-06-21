@@ -2,11 +2,26 @@ from django.shortcuts import render
 from django.shortcuts import get_object_or_404, render,redirect
 from .models import  NeighbourHood, Profile, Post, Business
 from django.contrib.auth.decorators import login_required
-from.forms import NeighbourhoodForm, UpdateProfileForm,PostForm,BusinessForm
+from .email import send_welcome_email
+from.forms import NeighbourhoodForm, UpdateProfileForm,PostForm,BusinessForm, SignupForm
 
 # Create your views here.
 def welcome(request):
     return render(request,'welcome.html')
+
+def signup(request):  
+    if request.method == 'POST':  
+        form = SignupForm(request.POST)  
+        if form.is_valid():  
+            email = form.cleaned_data['email']
+            name = form.cleaned_data['your_name']
+            recipient = Profile(name = name,email =email)
+            recipient.save()
+            send_welcome_email(name,email)
+    else:  
+               form = SignupForm()  
+
+    return render(request, 'registration/registration_form.html', {'form': form})  
 
 @login_required
 def home(request):
@@ -89,3 +104,4 @@ def search_results(request):
         message = f"{search_term}"
 
         return render(request, 'search.html',{"hoods": searched_hoods})
+

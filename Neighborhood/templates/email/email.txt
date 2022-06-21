@@ -1,0 +1,4 @@
+Hello {{user.username}}
+
+Welcome to the Neighborhood. See what your neighbors are posting...
+Register your business and post your thoughts.
