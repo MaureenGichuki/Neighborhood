@@ -31,12 +31,12 @@ class BusinessTestClass(TestCase):
         self.assertTrue(isinstance(self.business, Business))
 
     def test_save_method(self):
-        self.Business.save_location()
+        self.business.create_business()
         businesses = Business.objects.all()
         self.assertTrue(len(businesses) > 0)
 
     def test_delete_method(self):
-        self.business.save_location()
+        self.business.create_business()
         self.business.delete()
         businesses = Business.objects.all()
         self.assertTrue(len(businesses) == 0)
@@ -44,18 +44,18 @@ class BusinessTestClass(TestCase):
 
 class PostTestClass(TestCase):
     def setUp(self):
-        self.post = Post(name='Hello')
+        self.post = Post(title='Hello')
 
     def test_instance(self):
         self.assertTrue(isinstance(self.post, Post))
 
     def test_save_method(self):
-        self.post.save_post()
+        self.post.create_post()
         posts = Post.objects.all()
         self.assertTrue(len(posts) > 0)
 
     def test_delete_method(self):
-        self.post.save_post()
+        self.post.create_post()
         self.post.delete()
         posts = Post.objects.all()
         self.assertTrue(len(posts) == 0)
